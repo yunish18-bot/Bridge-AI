@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f1">
+  <meta name="description"
+    content="Bridge AI: practical job-skill matching, learning roadmap, application tracking, deadlines, and student budgeting.">
+  <title>Bridge AI | A practical companion for international students</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">B</span><span>Bridge<span class="accent">AI</span><small>Student
+            Companion</small></span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <button class="nav active" data-view="overview" type="button"><span
+            class="nav-glyph">◫</span><span>Overview</span></button>
+        <button class="nav" data-view="career" type="button"><span class="nav-glyph">◈</span><span>Career
+            Match</span></button>
+        <button class="nav" data-view="applications" type="button"><span
+            class="nav-glyph">▤</span><span>Applications</span></button>
+        <button class="nav" data-view="deadlines" type="button"><span
+            class="nav-glyph">◷</span><span>Deadlines</span></button>
+        <button class="nav" data-view="budget" type="button"><span class="nav-glyph">◉</span><span>Budget
+            Planner</span></button>
+        <button class="nav" data-view="assistant" type="button"><span class="nav-glyph">✧</span><span>Student
+            Assistant</span></button>
+        <button class="nav" data-view="resources" type="button"><span
+            class="nav-glyph">▥</span><span>Resources</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="avatar">BA</div>
+        <div><strong>Student workspace</strong><small>Private browser storage</small></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb">BRIDGE AI / <span id="crumb">OVERVIEW</span></div>
+        <div class="top-right"><span class="status" id="connection-status"><span class="dot"></span>Student workspace</span><button
+            class="outline tiny" id="export-data" type="button"
+            title="Download a JSON backup of your personal workspace">Export</button><button class="outline tiny"
+            id="import-data" type="button" title="Restore a previous Bridge AI JSON backup">Import</button><input
+            type="file" id="import-file" accept=".json,application/json" hidden></div>
+      </header>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <section class="view current" id="view-overview">
+        <div class="hero">
+          <div class="hero-copy"><span class="eyebrow">BUILT FOR INTERNATIONAL STUDENTS</span>
+            <h1>A little clarity for <em>what’s next.</em></h1>
+            <p>Find your career direction, understand campus life, and organize the details that matter—all in one calm, practical space.</p><button class="primary" data-go="career" type="button">Explore your career path <span
+                aria-hidden="true">→</span></button>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="journey-note">
+              <span class="journey-label">YOUR STUDENT JOURNEY</span>
+              <strong>One step<br>at a time.</strong>
+              <div class="journey-step"><span>01</span> Find direction</div>
+              <div class="journey-step"><span>02</span> Build your skills</div>
+              <div class="journey-step"><span>03</span> Stay on track</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Applications saved</span><strong id="stat-apps">0</strong><small>Track each
+              opportunity</small></div>
+          <div class="stat"><span>Open deadlines</span><strong id="stat-tasks">0</strong><small id="stat-urgent">Nothing
+              due soon</small></div>
+          <div class="stat"><span>Monthly balance</span><strong id="stat-budget">—</strong><small>From your budget
+              plan</small></div>
+        </div>
+        <div class="section-heading">
+          <h2>What do you want to do?</h2><span>Pick a tool to get started</span>
+        </div>
+        <div class="tiles">
+          <button class="tile" data-go="career" type="button"><span class="tile-icon violet">◈</span><strong>Compare
+              your skills</strong><small>Paste a job description and find skill gaps.</small><span
+              class="tile-link">Open Career Match ↗</span></button>
+          <button class="tile" data-go="applications" type="button"><span class="tile-icon blue">▤</span><strong>Track
+              job applications</strong><small>Save statuses and follow-up dates.</small><span class="tile-link">Open
+              Tracker ↗</span></button>
+          <button class="tile" data-go="assistant" type="button"><span class="tile-icon teal">✧</span><strong>Ask a
+              student question</strong><small>General answers with official references.</small><span
+              class="tile-link">Open Assistant ↗</span></button>
+        </div>
+        <div class="overview-columns">
+          <div>
+            <div class="section-heading">
+              <h2>Coming up</h2><button class="text-button" data-go="deadlines" type="button">Manage dates →</button>
+            </div>
+            <div class="panel" id="overview-deadlines"></div>
+          </div>
+          <div>
+            <div class="section-heading">
+              <h2>Why Bridge AI?</h2>
+            </div>
+            <div class="panel why">
+              <div class="why-icon">✓</div><strong>Useful, focused, and transparent</strong>
+              <p>Career matching uses explainable search and skill comparisons. Your applications, deadlines, and budget stay in this browser unless you export them.</p><button class="text-button" data-go="resources"
+                type="button">Browse verified sources →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-career">
+        <div class="page-head"><span class="eyebrow">CAREER NAVIGATOR</span>
+          <h1>Turn job requirements into a plan.</h1>
+          <p>Compare what you already know with a real description or an illustrative example role.</p>
+        </div>
+        <div class="career-layout">
+          <form id="career-form" class="panel form-stack">
+            <div class="form-top">
+              <h3>1. Choose your target</h3><span class="mini-tag">Skill matching</span>
+            </div><label for="role-select">Example career role</label><select id="role-select">
+              <option value="custom">Custom job description</option>
+            </select><small class="helper">Choose from 22 illustrative roles, or paste a real job posting. These examples are not live vacancies.</small><p class="role-preview" id="role-preview">Choose a role to view its example requirements.</p><label
+              for="job-description">Or paste job requirements</label><textarea id="job-description" rows="5"
+              maxlength="8000"
+              placeholder="Example: Seeking a Java developer familiar with SQL, Git, Spring Boot, REST APIs and testing..."></textarea><small
+              class="helper">A pasted description takes priority over the selected example. We scan for 25 known
+              skills.</small>
+            <div class="form-top">
+              <h3>2. Mark skills you have</h3><div class="career-actions"><button class="text-button" id="demo-profile" type="button">Try demo</button><button class="text-button" id="clear-skills" type="button">Clear all</button></div>
+            </div>
+            <div id="skill-pills" class="skill-pills" role="group" aria-label="Select skills you already know"></div>
+            <label for="custom-skills">Or enter skills (comma-separated)</label><input id="custom-skills" type="text"
+              maxlength="500" placeholder="e.g., Java, Git, SQL"><button class="primary full" type="submit">Analyze my
+              skill gaps →</button>
+          </form>
+          <div>
+            <div id="career-results" class="panel results-panel" aria-live="polite">
+              <div class="result-empty">
+                <div class="empty-glyph">◈</div>
+                <h3>Your career roadmap begins here</h3>
+                <p>Select your existing skills, choose a role or paste a job description, then run your match.</p>
+              </div>
+            </div>
+            <div class="info-strip"><strong>How is this AI?</strong>
+              <p>Skill extraction uses controlled natural-language term matching. The roadmap uses A* graph search over
+                prerequisite skills to find a lower-estimated-hours starter path. No LLM or live job feed is used.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-applications">
+        <div class="page-head"><span class="eyebrow">CAREER ORGANIZER</span>
+          <h1>Make every application count.</h1>
+          <p>Keep your applications, current status, and next follow-up in one private place.</p>
+        </div>
+        <div class="data-layout">
+          <form class="panel form-stack" id="application-form">
+            <h3>Add an application</h3><label for="app-company">Company or organization</label><input id="app-company"
+              required maxlength="90" placeholder="e.g., Example Company"><label for="app-title">Role /
+              position</label><input id="app-title" required maxlength="90"
+              placeholder="e.g., Software Engineering Intern"><label for="app-status">Status</label><select
+              id="app-status">
+              <option>Saved</option>
+              <option>Applied</option>
+              <option>Interview</option>
+              <option>Offer</option>
+              <option>Rejected</option>
+            </select><label for="app-date">Date added / applied</label><input id="app-date" type="date" required><label
+              for="app-followup">Follow-up date (optional)</label><input id="app-followup" type="date"><label
+              for="app-url">Job posting URL (optional)</label><input id="app-url" type="url" maxlength="400"
+              placeholder="https://example.com/careers"><label for="app-notes">Notes (optional)</label><textarea
+              id="app-notes" rows="3" maxlength="450"
+              placeholder="Contact name, interview prep, or next step"></textarea><button class="primary full"
+              type="submit">+ Save application</button>
+          </form>
+          <div class="panel list-panel">
+            <div class="panel-title">
+              <h3>My applications <span id="app-total"></span></h3><label class="filter-label" for="app-filter">Filter
+                <select id="app-filter">
+                  <option value="All">All</option>
+                  <option>Saved</option>
+                  <option>Applied</option>
+                  <option>Interview</option>
+                  <option>Offer</option>
+                  <option>Rejected</option>
+                </select></label>
+            </div>
+            <div id="application-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-deadlines">
+        <div class="page-head"><span class="eyebrow">ACADEMIC ORGANIZER</span>
+          <h1>Don't lose track of important dates.</h1>
+          <p>Add academic and personal tasks. Overdue and near-term items are highlighted.</p>
+        </div>
+        <div class="data-layout">
+          <form class="panel form-stack" id="deadline-form">
+            <h3>Add a deadline</h3><label for="task-title">Task name</label><input id="task-title" required
+              maxlength="90" placeholder="e.g., Submit AI project poster"><label for="task-date">Due date</label><input
+              id="task-date" type="date" required><label for="task-category">Category</label><select id="task-category">
+              <option>Assignment</option>
+              <option>Exam</option>
+              <option>Career</option>
+              <option>Personal</option>
+              <option>Financial</option>
+            </select><button class="primary full" type="submit">+ Add deadline</button>
+          </form>
+          <div class="panel list-panel">
+            <h3>My deadlines <span id="task-total"></span></h3>
+            <div id="task-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-budget">
+        <div class="page-head"><span class="eyebrow">MONEY BASICS</span>
+          <h1>Know where your money goes.</h1>
+          <p>Enter approximate monthly numbers to estimate what's left after expenses. No bank connection needed.</p>
+        </div>
+        <div class="budget-layout">
+          <form class="panel form-stack" id="budget-form">
+            <h3>Your monthly budget (USD)</h3><label for="income">Take-home income</label><input type="number" min="0"
+              max="10000000" step="0.01" id="income" required placeholder="0.00"><label for="rent">Rent &
+              utilities</label><input type="number" min="0" max="10000000" step="0.01" id="rent" required
+              placeholder="0.00"><label for="food">Groceries & food</label><input type="number" min="0" max="10000000"
+              step="0.01" id="food" required placeholder="0.00"><label for="transport">Transportation</label><input
+              type="number" min="0" max="10000000" step="0.01" id="transport" required placeholder="0.00"><label
+              for="tuition">Tuition / school payments</label><input type="number" min="0" max="10000000" step="0.01"
+              id="tuition" required placeholder="0.00"><label for="other">Other expenses</label><input type="number"
+              min="0" max="10000000" step="0.01" id="other" required placeholder="0.00"><button class="primary full"
+              type="submit">Save my budget</button>
+          </form>
+          <div>
+            <div id="budget-results" class="panel budget-results" aria-live="polite"></div>
+            <div class="info-strip"><strong>Educational tool only.</strong>
+              <p>This is simple arithmetic using values you provide. It does not access bank accounts, calculate credit
+                scores, or give individualized financial advice. <a
+                  href="https://www.consumerfinance.gov/consumer-tools/" target="_blank" rel="noopener noreferrer">CFPB
+                  money resources ↗</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-assistant">
+        <div class="page-head"><span class="eyebrow">STUDENT QUESTIONS</span>
+          <h1>A student guide, in your corner.</h1>
+          <p>Ask about courses, career skills, financial basics, or adjusting to university life. AI chat is optional; curated guidance works offline.</p>
+        </div>
+        <div class="chat-layout">
+          <div class="chat-panel">
+            <div class="chat-title"><span class="tile-icon violet">✧</span>
+              <div><strong>Bridge AI Student Assistant</strong><small id="chat-subtitle">Checking assistant mode…</small></div>
+              <span class="chat-mode-pill" id="chat-mode">Checking</span>
+            </div>
+            <div class="messages" id="messages" aria-live="polite">
+              <div class="message assistant">
+                <p>Hi! I can help you find starting-point answers about credit hours, budgeting, job preparation,
+                  deadlines, and more. Important decisions should be verified with official offices.</p>
+              </div>
+            </div>
+            <form id="chat-form" class="chat-form"><input type="text" id="chat-input" required maxlength="500"
+                placeholder="Ask a question..." aria-label="Ask Bridge AI"><button class="primary" type="submit">Ask
+                →</button></form>
+          </div>
+          <div class="suggestions">
+            <h3>Try asking</h3><button class="suggest" type="button" data-prompt="How do credit hours work?">How do
+              credit hours work? →</button><button class="suggest" type="button"
+              data-prompt="How can I improve my credit score?">How can I improve my credit score? →</button><button
+              class="suggest" type="button" data-prompt="How do I prepare for an internship?">How do I prepare for an
+              internship? →</button><button class="suggest" type="button"
+              data-prompt="Can an F-1 student work off campus?">Can an F-1 student work off campus? →</button>
+            <p class="note">With an API key, questions are sent to Gemini through the local server. Without one, Bridge AI uses its built-in curated library. Verify important decisions with official offices.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-resources">
+        <div class="page-head"><span class="eyebrow">TRUSTED LINKS</span>
+          <h1>Know where to find the real answer.</h1>
+          <p>Official education, government, university, and career references. Some examples are specific to Northern
+            Kentucky University.</p>
+        </div>
+        <div class="resource-grid" id="resource-grid"></div>
+        <div class="info-strip space-top"><strong>For schools other than NKU:</strong>
+          <p>Contact your own international student office, advisor, career center, and university catalog. University
+            policies and contact details vary.</p>
+        </div>
+      </section>
+      <footer>Bridge AI · CSC 425 · Yunish Bogati & Abhishek Siwakoti · CSC 425 working prototype · Education only; verify official policies.</footer>
+    </main>
+  </div>
+  <script src="data.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
